@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etlim <etlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:37:34 by etlim             #+#    #+#             */
-/*   Updated: 2023/03/06 15:31:37 by etlim            ###   ########.fr       */
+/*   Updated: 2023/03/06 15:46:01 by etlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffer[4096][BUFFER_SIZE + 1];
 	char		*line;
 	int			a;
 	int			b;
@@ -24,18 +24,18 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = NULL;
 	flag = 0;
-	while (!flag && (buffer[0] || (read (fd, buffer, BUFFER_SIZE) > 0)))
+	while (!flag && (buffer[fd][0] || (read (fd, buffer, BUFFER_SIZE) > 0)))
 	{
-		line = ft_strjoin(line, buffer);
+		line = ft_strjoin(line, buffer[fd]);
 		a = 0;
 		b = 0;
-		while (buffer[a])
+		while (buffer[fd][a])
 		{
 			if (flag)
-				buffer[b++] = buffer[a];
-			if (buffer[a] == '\n')
+				buffer[fd][b++] = buffer[fd][a];
+			if (buffer[fd][a] == '\n')
 				flag = 1;
-			buffer[a++] = 0;
+			buffer[fd][a++] = 0;
 		}
 	}
 	return (line);
@@ -65,6 +65,40 @@ int main()
     res = get_next_line(fd);
     printf("final = %s\n", res);
 	printf("ans - %d\n", res[0]);
+	system ("leaks a.out");
+    close(fd);
+}
+
+#include <fcntl.h>
+
+int main()
+{
+    int fd;
+    char *res;
+
+    fd = open("test", O_RDWR);
+    res = get_next_line(fd);
+    printf("final = %s\n", res);
+    free(res);
+    res = get_next_line(fd);
+    printf("final = %s\n", res);
+    free(res);
+    res = get_next_line(fd);
+    printf("final = %s\n", res);
+    free(res);
+    res = get_next_line(fd);
+    printf("final = %s\n", res);
+    free(res);
+    res = get_next_line(fd);
+    printf("final = %s\n", res);
+    free(res);
+    res = get_next_line(fd);
+    printf("final = %s\n", res);
+    free(res);
+    res = get_next_line(fd);
+    printf("final = %s\n", res);
+	printf("ans - %d\n", res[0]);
+    free(res);
 	system ("leaks a.out");
     close(fd);
 }
