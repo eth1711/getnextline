@@ -6,7 +6,7 @@
 /*   By: etlim <etlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:37:34 by etlim             #+#    #+#             */
-/*   Updated: 2023/03/06 15:31:37 by etlim            ###   ########.fr       */
+/*   Updated: 2023/03/07 12:08:40 by etlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,47 @@ char	*get_next_line(int fd)
 #include <stdio.h>
 #include <fcntl.h>
 
-int main()
+// int main()
+// {
+// 	int fd;
+// 	char *res;
+
+//     fd = open("test.txt", O_RDONLY);
+//     res = get_next_line(fd);
+//     printf("final = %s\n", res);
+//     res = get_next_line(fd);
+//     printf("final = %s\n", res);
+//     res = get_next_line(fd);
+//     printf("final = %s\n", res);
+//     res = get_next_line(fd);
+//     printf("final = %s\n", res);
+//     res = get_next_line(fd);
+//     printf("final = %s\n", res);
+//     // res = get_next_line(fd);
+//     // printf("final = %s\n", res);
+//     res = get_next_line(fd);
+//     printf("final = %s\n", res);
+// 	printf("ans - %d\n", res[0]);
+// 	system ("leaks a.out");
+//     close(fd);
+// }
+
+
+
+int	main(void)
 {
-	int fd;
-	char *res;
+	static int	fd;
+	// static int	fd2;
+	int	i = 0;
 
     fd = open("test.txt", O_RDONLY);
-    res = get_next_line(fd);
-    printf("final = %s\n", res);
-    res = get_next_line(fd);
-    printf("final = %s\n", res);
-    res = get_next_line(fd);
-    printf("final = %s\n", res);
-    res = get_next_line(fd);
-    printf("final = %s\n", res);
-    res = get_next_line(fd);
-    printf("final = %s\n", res);
-    res = get_next_line(fd);
-    printf("final = %s\n", res);
-    res = get_next_line(fd);
-    printf("final = %s\n", res);
-	printf("ans - %d\n", res[0]);
-	system ("leaks a.out");
-    close(fd);
+	// fd2 = open("test2.txt", O_RDONLY);
+    if (fd == -1)
+    {
+        printf("Failed to open & read file.\n");
+        return (1);
+    }
+	while (i++ < 5)
+		printf("main: [%s]\n", get_next_line(fd));
+		// printf("main: [%s]\n", get_next_line(fd2));
 }

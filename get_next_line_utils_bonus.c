@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etlim <etlim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:37:32 by etlim             #+#    #+#             */
-/*   Updated: 2023/03/06 15:29:08 by etlim            ###   ########.fr       */
+/*   Updated: 2023/03/07 11:33:27 by etlim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static size_t	ft_strlen(char *s)
 	int	i;
 
 	i = 0;
-	if(!s)
+	if (!s)
 		return (0);
 	while (s[i] && s[i] != '\n')
 		i++;
@@ -34,8 +34,8 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	a = 0;
 	b = -1;
-	newstr = (char *)malloc((ft_strlen(s1) + (ft_strlen(s2))) + 1
-			* (sizeof(char)));
+	newstr = (char *)malloc((ft_strlen(s1) + ft_strlen(s2)) + 1
+			* sizeof(char));
 	if (!newstr)
 		return (NULL);
 	while (s1 && s1[a] != '\0')
